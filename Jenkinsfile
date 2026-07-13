@@ -3,10 +3,10 @@ pipeline {
 
     tools {
         maven 'Maven3'   // Name must match a Maven installation configured in Jenkins > Global Tool Configuration
-        // jdk 'JDK17'    // Commented out to use the Jenkins container's built-in system Java environment
     }
 
     environment {
+        // Automatically fetches credentials from Jenkins Global Storage
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') 
         DOCKER_IMAGE           = "chiraggowda0316/ott-platform"
         IMAGE_TAG              = "${env.BUILD_NUMBER}"
@@ -39,7 +39,8 @@ pipeline {
             }
             post {
                 always {
-                    junit '**/target/surefire-reports/*.xml'
+                    // Prevents pipeline from failing if no test files exist yet
+                    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/*.xml'
                 }
             }
         }
