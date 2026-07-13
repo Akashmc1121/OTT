@@ -3,12 +3,11 @@ pipeline {
 
     tools {
         maven 'Maven3'   // Name must match a Maven installation configured in Jenkins > Global Tool Configuration
-        jdk 'JDK17'      // Name must match a JDK installation configured in Jenkins > Global Tool Configuration
+        // jdk 'JDK17'    // Commented out to use the Jenkins container's built-in system Java environment
     }
 
     environment {
-        // Change these to match your own Docker Hub / registry account
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins credential ID (username/password)
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') 
         DOCKER_IMAGE           = "chiraggowda0316/ott-platform"
         IMAGE_TAG              = "${env.BUILD_NUMBER}"
     }
@@ -19,7 +18,6 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 echo 'Checking out source code...'
