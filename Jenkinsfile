@@ -9,7 +9,7 @@ pipeline {
     environment {
         // Change these to match your own Docker Hub / registry account
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins credential ID (username/password)
-        DOCKER_IMAGE           = "yourdockerhubusername/ott-platform"
+        DOCKER_IMAGE           = "chiraggowda0316/ott-platform"
         IMAGE_TAG              = "${env.BUILD_NUMBER}"
     }
 
